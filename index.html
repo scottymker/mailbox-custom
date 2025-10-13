@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mailbox Customizer</title>
+  <meta name="description" content="Preview and customize your mailbox decal sticker."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+  <!-- Lucide icons (non-React) -->
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="brand">
+        <div class="logo">
+          <i data-lucide="mailbox" aria-hidden="true"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Wall Decor Plus More</h1>
+          <p class="tagline">Customize your mailbox here</p>
+        </div>
+      </div>
+      <a class="cta ghost" href="#customizer">
+        <span>Submit your options</span>
+        <i data-lucide="arrow-down-right"></i>
+      </a>
+      <div class="shapes">
+        <span class="blob b1"></span>
+        <span class="blob b2"></span>
+        <span class="blob b3"></span>
+      </div>
+    </section>
+
+    <!-- CUSTOMIZER -->
+    <section id="customizer" class="customizer container">
+      <div class="pane preview">
+        <div class="preview-wrap">
+          <img src="mailbox52.jpg" alt="Mailbox preview" class="preview-img"/>
+          <div id="top-text" class="decal-text top">1234 Bourbon Drive</div>
+          <div id="bottom-text" class="decal-text bottom">The Andersons</div>
+        </div>
+        <div class="legend">
+          <span class="dot"></span> Live preview (text size fixed by design)
+        </div>
+      </div>
+
+      <div class="pane controls">
+        <form id="decal-form" action="success.html" method="GET" novalidate>
+          <div class="group">
+            <label for="preset-top">Top line (choose a preset)</label>
+            <select id="preset-top" name="top">
+              <option value="1234 Bourbon Drive" selected>1234 Bourbon Drive</option>
+              <option value="789 Maple Ave">789 Maple Ave</option>
+              <option value="56 Lakeview Road">56 Lakeview Road</option>
+              <option value="410 Cedar Ridge">410 Cedar Ridge</option>
+            </select>
+          </div>
+
+          <div class="group">
+            <label for="preset-bottom">Bottom line (choose a preset)</label>
+            <select id="preset-bottom" name="bottom">
+              <option value="The Andersons" selected>The Andersons</option>
+              <option value="The Johnson Family">The Johnson Family</option>
+              <option value="Cedar Falls, IA">Cedar Falls, IA</option>
+              <option value="Unit B">Unit B</option>
+            </select>
+          </div>
+
+          <div class="group">
+            <label for="decal-color">Decal color (affects text color)</label>
+            <div class="swatches" role="radiogroup" aria-label="Decal color">
+              <input type="radio" id="c-white" name="color" value="#ffffff" checked>
+              <label class="swatch" for="c-white" style="--sw:#ffffff" title="White"></label>
+              <input type="radio" id="c-black" name="color" value="#202020">
+              <label class="swatch" for="c-black" style="--sw:#202020" title="Black"></label>
+              <input type="radio" id="c-gold" name="color" value="#ad8771">
+              <label class="swatch" for="c-gold" style="--sw:#ad8771" title="Gold"></label>
+              <input type="radio" id="c-silver" name="color" value="#bababa">
+              <label class="swatch" for="c-silver" style="--sw:#bababa" title="Silver"></label>
+            </div>
+          </div>
+
+          <div class="group inline">
+            <button class="btn" type="submit">
+              <i data-lucide="send"></i>
+              <span>Submit</span>
+            </button>
+            <button class="btn ghost" type="button" id="reset-btn">
+              <i data-lucide="rotate-ccw"></i>
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <p class="note">By clicking Submit, you'll proceed to a confirmation screen.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-link" href="https://www.walldecorplusmore.com/" target="_blank" rel="noopener">
+      Visit Wall Decor Plus More
+      <i data-lucide="external-link"></i>
+    </a>
+  </footer>
+
+  <script src="script.js" defer></script>
+  <script>
+    // Initialize Lucide icons
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.lucide) { window.lucide.createIcons(); }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Success • Mailbox Customizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="success-body">
+  <main class="success-wrap">
+    <div class="card success-card">
+      <div class="success-mark">
+        <i data-lucide="badge-check" aria-hidden="true"></i>
+      </div>
+      <h1 class="success-title">Customization Submitted!</h1>
+      <p class="success-sub">
+        Thanks for using <strong>Mailbox Customizer</strong>. Below is a quick summary of what you sent.
+      </p>
+      <div class="summary">
+        <div class="row"><span>Top line:</span><strong id="sum-top">—</strong></div>
+        <div class="row"><span>Bottom line:</span><strong id="sum-bottom">—</strong></div>
+        <div class="row"><span>Decal color:</span><strong id="sum-color">—</strong></div>
+      </div>
+      <a href="index.html" class="btn">
+        <i data-lucide="home"></i>
+        <span>Back Home</span>
+      </a>
+    </div>
+  </main>
+  <script>
+    // Fill summary from query params
+    const params = new URLSearchParams(location.search);
+    const top = params.get('top') || '—';
+    const bottom = params.get('bottom') || '—';
+    const color = params.get('color') || '—';
+    document.getElementById('sum-top').textContent = top;
+    document.getElementById('sum-bottom').textContent = bottom;
+    document.getElementById('sum-color').textContent = color;
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.lucide) { window.lucide.createIcons(); }
+    });
+  </script>
+</body>
+</html>
