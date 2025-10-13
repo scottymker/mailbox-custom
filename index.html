@@ -32,7 +32,7 @@
      </section>
 
     <!-- CUSTOMIZER -->
-    <section id="customizer" class="customizer container">
+        <section id="customizer" class="customizer container">
       <div class="pane preview">
         <div class="preview-wrap">
           <img src="mailbox52.jpg" alt="Mailbox preview" class="preview-img"/>
@@ -67,6 +67,19 @@
           </div>
 
           <div class="group">
+            <label for="font-select">Font</label>
+            <select id="font-select" name="font">
+              <option value="Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" selected>Poppins</option>
+              <option value="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Inter</option>
+              <option value="'Montserrat', Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Montserrat</option>
+              <option value="'Lora', Georgia, 'Times New Roman', Times, serif">Lora</option>
+              <option value="'Merriweather', Georgia, 'Times New Roman', Times, serif">Merriweather</option>
+              <option value="'Playfair Display', Georgia, 'Times New Roman', Times, serif">Playfair Display</option>
+              <option value="'Great Vibes', 'Brush Script MT', cursive">Great Vibes (script)</option>
+            </select>
+          </div>
+
+          <div class="group">
             <label for="decal-color">Decal color (affects text color)</label>
             <div class="swatches" role="radiogroup" aria-label="Decal color">
               <input type="radio" id="c-white" name="color" value="#ffffff" checked>
@@ -96,7 +109,7 @@
       </div>
     </section>
   </main>
-
+  
   <footer class="site-footer">
     <a class="footer-link" href="https://www.walldecorplusmore.com/" target="_blank" rel="noopener">
       Visit Wall Decor Plus More
