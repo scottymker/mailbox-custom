@@ -4,112 +4,262 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mailbox Customizer</title>
-  <meta name="description" content="Preview and customize your mailbox decal sticker."/>
+  <meta name="description" content="Live preview your mailbox decal before you order. Dial in fonts, colors, spacing, and mirrored layouts instantly."/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600&family=Lora:wght@500;600&family=Merriweather:wght@600&family=Montserrat:wght@500;600&family=Oswald:wght@500&family=Playfair+Display:wght@600&family=Poppins:wght@600;700&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css"/>
   <!-- Lucide icons (non-React) -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
   <main>
-    <!-- HERO -->
-     <section class="hero">
-       <div class="brand">
-         <div class="logo">
-           <i data-lucide="mailbox" aria-hidden="true"></i>
-         </div>
-         <div class="brand-text">
-           <h1>Wall Decor Plus More</h1>
-           <p class="tagline">Customize your mailbox here</p>
-         </div>
-       <div class="shapes">
-         <span class="blob b1"></span>
-         <span class="blob b2"></span>
-         <span class="blob b3"></span>
-       </div>
-     </section>
-
-    <!-- CUSTOMIZER -->
-        <section id="customizer" class="customizer container">
-      <div class="pane preview">
-        <div class="preview-wrap">
-          <img src="mailbox52.jpg" alt="Mailbox preview" class="preview-img"/>
-          <div id="top-text" class="decal-text top">1234 Bourbon Drive</div>
-          <div id="bottom-text" class="decal-text bottom">The Andersons</div>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="brand">
+          <div class="logo">
+            <i data-lucide="mailbox" aria-hidden="true"></i>
+          </div>
+          <div class="brand-text">
+            <h1>Wall Decor Plus More</h1>
+            <p class="tagline">Design your mailbox decals with a live preview</p>
+          </div>
         </div>
-        <div class="legend">
-          <span class="dot"></span> Live preview (text size fixed by design)
-        </div>
+        <p class="hero-sub">
+          Type in your address, try fonts and colors, and mirror the artwork for the opposite side of the box—all before you submit.
+        </p>
+        <ul class="hero-points">
+          <li><i data-lucide="sparkles" aria-hidden="true"></i> Instant feedback with every change</li>
+          <li><i data-lucide="palette" aria-hidden="true"></i> Curated vinyl colors and premium fonts</li>
+          <li><i data-lucide="ruler" aria-hidden="true"></i> Proportion sliders tuned to real decal sizing</li>
+        </ul>
       </div>
+      <div class="shapes">
+        <span class="blob b1"></span>
+        <span class="blob b2"></span>
+        <span class="blob b3"></span>
+      </div>
+    </section>
 
-      <div class="pane controls">
-        <form id="decal-form" action="success.html" method="GET" novalidate>
-          <div class="group">
-            <label for="preset-top">Top line (choose a preset)</label>
-            <select id="preset-top" name="top">
-              <option value="1234 Bourbon Drive" selected>1234 Bourbon Drive</option>
-              <option value="789 Maple Ave">789 Maple Ave</option>
-              <option value="56 Lakeview Road">56 Lakeview Road</option>
-              <option value="410 Cedar Ridge">410 Cedar Ridge</option>
-            </select>
+    <section id="customizer" class="customizer container">
+      <header class="section-lead">
+        <h2>Design your mailbox decal</h2>
+        <p>Everything updates in real-time—share the finished preview with our team or save it for your own install.</p>
+      </header>
+
+      <div class="layout">
+        <div class="pane preview">
+          <div class="preview-header">
+            <h3>Live preview</h3>
           </div>
-
-          <div class="group">
-            <label for="preset-bottom">Bottom line (choose a preset)</label>
-            <select id="preset-bottom" name="bottom">
-              <option value="The Andersons" selected>The Andersons</option>
-              <option value="The Johnson Family">The Johnson Family</option>
-              <option value="Cedar Falls, IA">Cedar Falls, IA</option>
-              <option value="Unit B">Unit B</option>
-            </select>
+          <div class="preview-wrap" id="preview-stage">
+            <img src="mailbox_mockup_decal.png" alt="Mailbox preview" class="preview-img"/>
+            <div class="preview-guides" aria-hidden="true">
+              <span class="guide guide-top"></span>
+              <span class="guide guide-center"></span>
+              <span class="guide guide-bottom"></span>
+            </div>
+            <div class="decal-text top" id="preview-top" data-placeholder="1234 Bourbon Drive">1234 Bourbon Drive</div>
+            <div class="decal-text bottom" id="preview-bottom" data-placeholder="The Andersons">The Andersons</div>
           </div>
-
-          <div class="group">
-            <label for="font-select">Font</label>
-            <select id="font-select" name="font">
-              <option value="Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" selected>Poppins</option>
-              <option value="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Inter</option>
-              <option value="'Montserrat', Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Montserrat</option>
-              <option value="'Lora', Georgia, 'Times New Roman', Times, serif">Lora</option>
-              <option value="'Merriweather', Georgia, 'Times New Roman', Times, serif">Merriweather</option>
-              <option value="'Playfair Display', Georgia, 'Times New Roman', Times, serif">Playfair Display</option>
-              <option value="'Great Vibes', 'Brush Script MT', cursive">Great Vibes (script)</option>
-            </select>
+          <div class="preview-actions">
+            <button type="button" class="pill" id="guides-toggle" aria-pressed="false">
+              <i data-lucide="ruler" aria-hidden="true"></i>
+              <span>Show guides</span>
+            </button>
           </div>
-
-          <div class="group">
-            <label for="decal-color">Decal color (affects text color)</label>
-            <div class="swatches" role="radiogroup" aria-label="Decal color">
-              <input type="radio" id="c-white" name="color" value="#ffffff" checked>
-              <label class="swatch" for="c-white" style="--sw:#ffffff" title="White"></label>
-              <input type="radio" id="c-black" name="color" value="#202020">
-              <label class="swatch" for="c-black" style="--sw:#202020" title="Black"></label>
-              <input type="radio" id="c-gold" name="color" value="#ad8771">
-              <label class="swatch" for="c-gold" style="--sw:#ad8771" title="Gold"></label>
-              <input type="radio" id="c-silver" name="color" value="#bababa">
-              <label class="swatch" for="c-silver" style="--sw:#bababa" title="Silver"></label>
+          <div class="preview-legend">
+            <span class="dot"></span>
+            <div class="legend-copy">
+              <p><strong>How to use the preview</strong></p>
+              <ol>
+                <li>Drag the top or bottom text to match your mailbox positioning.</li>
+                <li>Use the color swatches to see your lettering options.</li>
+                <li>Update the text fields on the right; every change updates instantly.</li>
+                <li>Submit the form to generate a summary you can send to our team.</li>
+              </ol>
             </div>
           </div>
+        </div>
 
-          <div class="group inline">
-            <button class="btn" type="submit">
-              <i data-lucide="send"></i>
-              <span>Submit</span>
-            </button>
-            <button class="btn ghost" type="button" id="reset-btn">
-              <i data-lucide="rotate-ccw"></i>
-              <span>Reset</span>
-            </button>
-          </div>
+        <div class="pane controls">
+          <form id="decal-form" action="success.html" method="GET" novalidate>
+            <fieldset>
+              <legend>Your text</legend>
+              <div class="field">
+                <label for="top-input">Top line</label>
+                <input id="top-input" name="top" type="text" maxlength="32" value="1234 Bourbon Drive" autocomplete="off" spellcheck="false" data-preview="top"/>
+                <div class="field-meta">
+                  <span class="hint">Street number or address—max 32 characters.</span>
+                  <span class="counter" data-counter="top">18/32</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="bottom-input">Bottom line</label>
+                <input id="bottom-input" name="bottom" type="text" maxlength="32" value="The Andersons" autocomplete="off" spellcheck="false" data-preview="bottom"/>
+                <div class="field-meta">
+                  <span class="hint">Family name, city, or preferred tagline.</span>
+                  <span class="counter" data-counter="bottom">13/32</span>
+                </div>
+              </div>
+              <div class="field switches">
+                <label class="switch">
+                  <input type="checkbox" id="top-caps" name="topCaps" value="true">
+                  <span>Top line in all caps</span>
+                </label>
+                <label class="switch">
+                  <input type="checkbox" id="bottom-caps" name="bottomCaps" value="true">
+                  <span>Bottom line in all caps</span>
+                </label>
+              </div>
+            </fieldset>
 
-          <p class="note">By clicking Submit, you'll proceed to a confirmation screen.</p>
-        </form>
+            <fieldset>
+              <legend>Style</legend>
+              <div class="field">
+                <label for="font-select">Font</label>
+                <select id="font-select" name="font">
+                  <option value="Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" data-label="Poppins" selected>Poppins</option>
+                  <option value="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" data-label="Inter">Inter</option>
+                  <option value="'Montserrat', Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" data-label="Montserrat">Montserrat</option>
+                  <option value="'Lora', Georgia, 'Times New Roman', Times, serif" data-label="Lora">Lora</option>
+                  <option value="'Merriweather', Georgia, 'Times New Roman', Times, serif" data-label="Merriweather">Merriweather</option>
+                  <option value="'Playfair Display', Georgia, 'Times New Roman', Times, serif" data-label="Playfair Display">Playfair Display</option>
+                  <option value="'Great Vibes', 'Brush Script MT', cursive" data-label="Great Vibes">Great Vibes (script)</option>
+                  <option value="'Roboto Slab', 'Times New Roman', Times, serif" data-label="Roboto Slab">Roboto Slab</option>
+                  <option value="'Oswald', 'Arial Narrow', Inter, sans-serif" data-label="Oswald">Oswald</option>
+                </select>
+                <div class="font-preview" id="font-preview">AaBb 123</div>
+                <input type="hidden" id="font-label" name="fontName" value="Poppins"/>
+              </div>
+
+              <div class="field">
+                <span class="label">Decal color</span>
+                <div class="swatches" role="radiogroup" aria-label="Decal color">
+                  <input type="radio" id="c-white" name="color" value="#fdfbfb" data-label="White" checked>
+                  <label class="swatch" for="c-white" style="--sw:#fdfbfb" title="White"></label>
+                  <input type="radio" id="c-black" name="color" value="#181820" data-label="Black">
+                  <label class="swatch" for="c-black" style="--sw:#181820" title="Black"></label>
+                  <input type="radio" id="c-beige" name="color" value="#D2C3A3" data-label="Beige">
+                  <label class="swatch" for="c-beige" style="--sw:#D2C3A3" title="Beige"></label>
+                  <input type="radio" id="c-burgendy" name="color" value="#6F263D" data-label="Burgendy">
+                  <label class="swatch" for="c-burgendy" style="--sw:#6F263D" title="Burgendy"></label>
+                  <input type="radio" id="c-carnation-pink" name="color" value="#F4C3CC" data-label="Carnation Pink">
+                  <label class="swatch" for="c-carnation-pink" style="--sw:#F4C3CC" title="Carnation Pink"></label>
+                  <input type="radio" id="c-celedon" name="color" value="#BABD8B" data-label="Celedon">
+                  <label class="swatch" for="c-celedon" style="--sw:#BABD8B" title="Celedon"></label>
+                  <input type="radio" id="c-chocolate-brown" name="color" value="#4E3629" data-label="Chocolate Brown">
+                  <label class="swatch" for="c-chocolate-brown" style="--sw:#4E3629" title="Chocolate Brown"></label>
+                  <input type="radio" id="c-deep-blue" name="color" value="#353F63" data-label="Deep Blue">
+                  <label class="swatch" for="c-deep-blue" style="--sw:#353F63" title="Deep Blue"></label>
+                  <input type="radio" id="c-geyser" name="color" value="#77C5D5" data-label="Geyser">
+                  <label class="swatch" for="c-geyser" style="--sw:#77C5D5" title="Geyser"></label>
+                  <input type="radio" id="c-hot-pink" name="color" value="#D13F78" data-label="Hot Pink">
+                  <label class="swatch" for="c-hot-pink" style="--sw:#D13F78" title="Hot Pink"></label>
+                  <input type="radio" id="c-ice-blue" name="color" value="#48A6D4" data-label="Ice Blue">
+                  <label class="swatch" for="c-ice-blue" style="--sw:#48A6D4" title="Ice Blue"></label>
+                  <input type="radio" id="c-key-lime" name="color" value="#C2E189" data-label="Key Lime">
+                  <label class="swatch" for="c-key-lime" style="--sw:#C2E189" title="Key Lime"></label>
+                  <input type="radio" id="c-lilac" name="color" value="#BF94BE" data-label="Lilac">
+                  <label class="swatch" for="c-lilac" style="--sw:#BF94BE" title="Lilac"></label>
+                  <input type="radio" id="c-lime-green" name="color" value="#6FAB44" data-label="Lime Green">
+                  <label class="swatch" for="c-lime-green" style="--sw:#6FAB44" title="Lime Green"></label>
+                  <input type="radio" id="c-lipstick" name="color" value="#C92866" data-label="Lipstick">
+                  <label class="swatch" for="c-lipstick" style="--sw:#C92866" title="Lipstick"></label>
+                  <input type="radio" id="c-metallic-gold" name="color" value="#826D43" data-label="Metallic Gold">
+                  <label class="swatch" for="c-metallic-gold" style="--sw:#826D43" title="Metallic Gold"></label>
+                  <input type="radio" id="c-metallic-silver" name="color" value="#808284" data-label="Metallic Silver">
+                  <label class="swatch" for="c-metallic-silver" style="--sw:#808284" title="Metallic Silver"></label>
+                  <input type="radio" id="c-olive-green" name="color" value="#9B945F" data-label="Olive Green">
+                  <label class="swatch" for="c-olive-green" style="--sw:#9B945F" title="Olive Green"></label>
+                  <input type="radio" id="c-orange" name="color" value="#F36122" data-label="Orange">
+                  <label class="swatch" for="c-orange" style="--sw:#F36122" title="Orange"></label>
+                  <input type="radio" id="c-pastel-orange" name="color" value="#FF7321" data-label="Pastel Orange">
+                  <label class="swatch" for="c-pastel-orange" style="--sw:#FF7321" title="Pastel Orange"></label>
+                  <input type="radio" id="c-plum" name="color" value="#6A4474" data-label="Plum">
+                  <label class="swatch" for="c-plum" style="--sw:#6A4474" title="Plum"></label>
+                  <input type="radio" id="c-purple" name="color" value="#836BAA" data-label="Purple">
+                  <label class="swatch" for="c-purple" style="--sw:#836BAA" title="Purple"></label>
+                  <input type="radio" id="c-red" name="color" value="#A5222D" data-label="Red">
+                  <label class="swatch" for="c-red" style="--sw:#A5222D" title="Red"></label>
+                  <input type="radio" id="c-soft-pink" name="color" value="#F68CB8" data-label="Soft Pink">
+                  <label class="swatch" for="c-soft-pink" style="--sw:#F68CB8" title="Soft Pink"></label>
+                  <input type="radio" id="c-storm-grey" name="color" value="#798284" data-label="Storm Grey">
+                  <label class="swatch" for="c-storm-grey" style="--sw:#798284" title="Storm Grey"></label>
+                  <input type="radio" id="c-tan" name="color" value="#B08D67" data-label="Tan">
+                  <label class="swatch" for="c-tan" style="--sw:#B08D67" title="Tan"></label>
+                  <input type="radio" id="c-teal" name="color" value="#008595" data-label="Teal">
+                  <label class="swatch" for="c-teal" style="--sw:#008595" title="Teal"></label>
+                  <input type="radio" id="c-traffic-blue" name="color" value="#006BB5" data-label="Traffic Blue">
+                  <label class="swatch" for="c-traffic-blue" style="--sw:#006BB5" title="Traffic Blue"></label>
+                  <input type="radio" id="c-turquoise" name="color" value="#009FA0" data-label="Turquoise">
+                  <label class="swatch" for="c-turquoise" style="--sw:#009FA0" title="Turquoise"></label>
+                  <input type="radio" id="c-warm-grey" name="color" value="#CBC4BC" data-label="Warm Grey">
+                  <label class="swatch" for="c-warm-grey" style="--sw:#CBC4BC" title="Warm Grey"></label>
+                  <input type="radio" id="c-yellow" name="color" value="#FFCA17" data-label="Yellow">
+                  <label class="swatch" for="c-yellow" style="--sw:#FFCA17" title="Yellow"></label>
+                  <input type="radio" id="c-tumbleweed" name="color" value="#A0927D" data-label="Tumbleweed">
+                  <label class="swatch" for="c-tumbleweed" style="--sw:#A0927D" title="Tumbleweed"></label>
+                  <input type="radio" id="c-light-gray" name="color" value="#E0E0E0" data-label="Light Gray">
+                  <label class="swatch" for="c-light-gray" style="--sw:#E0E0E0" title="Light Gray"></label>
+                  <input type="radio" id="c-misty-blue" name="color" value="#8EB3C9" data-label="Misty Blue">
+                  <label class="swatch" for="c-misty-blue" style="--sw:#8EB3C9" title="Misty Blue"></label>
+                  <input type="radio" id="c-beachhouse" name="color" value="#94CBCE" data-label="BeachHouse">
+                  <label class="swatch" for="c-beachhouse" style="--sw:#94CBCE" title="BeachHouse"></label>
+                  <input type="radio" id="c-mint" name="color" value="#6DDBC7" data-label="Mint">
+                  <label class="swatch" for="c-mint" style="--sw:#6DDBC7" title="Mint"></label>
+                  <input type="radio" id="c-eggplant" name="color" value="#6D4F58" data-label="Eggplant">
+                  <label class="swatch" for="c-eggplant" style="--sw:#6D4F58" title="Eggplant"></label>
+                  <input type="radio" id="c-berry" name="color" value="#99355C" data-label="Berry">
+                  <label class="swatch" for="c-berry" style="--sw:#99355C" title="Berry"></label>
+                  <input type="radio" id="c-rust-orange" name="color" value="#C9853C" data-label="Rust Orange">
+                  <label class="swatch" for="c-rust-orange" style="--sw:#C9853C" title="Rust Orange"></label>
+                  <input type="radio" id="c-buttercream" name="color" value="#FFE98F" data-label="Buttercream">
+                  <label class="swatch" for="c-buttercream" style="--sw:#FFE98F" title="Buttercream"></label>
+                  <input type="radio" id="c-honey" name="color" value="#E8A72E" data-label="Honey">
+                  <label class="swatch" for="c-honey" style="--sw:#E8A72E" title="Honey"></label>
+                  <input type="radio" id="c-coral" name="color" value="#ED7B62" data-label="Coral">
+                  <label class="swatch" for="c-coral" style="--sw:#ED7B62" title="Coral"></label>
+                  <input type="radio" id="c-cherry-red" name="color" value="#D60718" data-label="Cherry Red">
+                  <label class="swatch" for="c-cherry-red" style="--sw:#D60718" title="Cherry Red"></label>
+                </div>
+                <input type="hidden" id="color-label" name="colorName" value="White"/>
+                <input type="hidden" name="topSize" value="20"/>
+                <input type="hidden" name="bottomSize" value="20"/>
+                <input type="hidden" id="top-x-input" name="topX" value="50"/>
+                <input type="hidden" id="top-y-input" name="topY" value="32"/>
+                <input type="hidden" id="bottom-x-input" name="bottomX" value="50"/>
+                <input type="hidden" id="bottom-y-input" name="bottomY" value="74"/>
+              </div>
+
+            </fieldset>
+
+            <fieldset>
+              <legend>Finishing touches</legend>
+              <div class="field">
+                <label for="notes">Notes for the maker <span class="hint">(optional)</span></label>
+                <textarea id="notes" name="notes" rows="2" maxlength="120" placeholder="Include special spacing, decal size, or installation notes."></textarea>
+              </div>
+            </fieldset>
+
+            <div class="group inline">
+              <button class="btn" type="submit">
+                <i data-lucide="send"></i>
+                <span>Save configuration</span>
+              </button>
+              <button class="btn ghost" type="reset" id="reset-btn">
+                <i data-lucide="rotate-ccw"></i>
+                <span>Reset</span>
+              </button>
+            </div>
+
+            <p class="note">Ready for production? Submit this configuration and a designer will follow up with a printable proof.</p>
+          </form>
+        </div>
       </div>
     </section>
   </main>
-  
+
   <footer class="site-footer">
     <a class="footer-link" href="https://www.walldecorplusmore.com/" target="_blank" rel="noopener">
       Visit Wall Decor Plus More
@@ -119,7 +269,6 @@
 
   <script src="script.js" defer></script>
   <script>
-    // Initialize Lucide icons
     document.addEventListener('DOMContentLoaded', function(){
       if (window.lucide) { window.lucide.createIcons(); }
     });

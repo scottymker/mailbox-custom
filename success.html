@@ -6,7 +6,7 @@
   <title>Success • Mailbox Customizer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600&family=Lora:wght@500;600&family=Merriweather:wght@600&family=Montserrat:wght@500;600&family=Oswald:wght@500&family=Playfair+Display:wght@600&family=Poppins:wght@600;700&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css"/>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
@@ -16,33 +16,139 @@
       <div class="success-mark">
         <i data-lucide="badge-check" aria-hidden="true"></i>
       </div>
-      <h1 class="success-title">Customization Submitted!</h1>
+      <h1 class="success-title">Customization submitted!</h1>
       <p class="success-sub">
-        Thanks for using <strong>Mailbox Customizer</strong>. Below is a quick summary of what you sent.
+        Thanks for using <strong>Mailbox Customizer</strong>. A copy of your live settings is listed below—feel free to download or share with our team.
       </p>
       <div class="summary">
-        <div class="row"><span>Top line:</span><strong id="sum-top">—</strong></div>
-        <div class="row"><span>Bottom line:</span><strong id="sum-bottom">—</strong></div>
-        <div class="row"><span>Decal color:</span><strong id="sum-color">—</strong></div>
+        <div class="row"><span>Top line</span><strong id="sum-top">—</strong></div>
+        <div class="row"><span>Bottom line</span><strong id="sum-bottom">—</strong></div>
+        <div class="row"><span>Font</span><strong id="sum-font">—</strong></div>
+        <div class="row color-row"><span>Decal color</span>
+          <strong id="sum-color">
+            <span class="color-chip" id="sum-color-chip" aria-hidden="true"></span>
+            <span id="sum-color-label">—</span>
+          </strong>
+        </div>
+        <div class="row"><span>Top line in caps</span><strong id="sum-top-caps">—</strong></div>
+        <div class="row"><span>Bottom line in caps</span><strong id="sum-bottom-caps">—</strong></div>
+        <div class="row notes-row" id="sum-notes-row" hidden><span>Notes</span><strong id="sum-notes">—</strong></div>
       </div>
       <a href="index.html" class="btn">
         <i data-lucide="home"></i>
-        <span>Back Home</span>
+        <span>Back home</span>
       </a>
     </div>
   </main>
   <script>
-    // Fill summary from query params
     const params = new URLSearchParams(location.search);
-    const top = params.get('top') || '—';
-    const bottom = params.get('bottom') || '—';
-    const color = params.get('color') || '—';
-    document.getElementById('sum-top').textContent = top;
-    document.getElementById('sum-bottom').textContent = bottom;
-    document.getElementById('sum-color').textContent = color;
+    const read = key => {
+      const value = params.get(key);
+      return value && value.trim().length ? value.trim() : null;
+    };
+    const getBool = key => params.get(key) === 'true';
+    const topLine = read('top') || '—';
+    const bottomLine = read('bottom') || '—';
+    const fontName = read('fontName') || simplifyFont(params.get('font'));
+    const colorName = read('colorName') || mapColor(read('color'));
+    const colorHex = read('color') || '#ffffff';
+    const topCaps = getBool('topCaps');
+    const bottomCaps = getBool('bottomCaps');
+    const notes = read('notes');
+
+    document.getElementById('sum-top').textContent = topLine;
+    document.getElementById('sum-bottom').textContent = bottomLine;
+    document.getElementById('sum-font').textContent = fontName || '—';
+    document.getElementById('sum-color-label').textContent = colorName || colorHex || '—';
+    document.getElementById('sum-color-chip').style.setProperty('--chip', colorHex || '#ffffff');
+    document.getElementById('sum-top-caps').textContent = topCaps ? 'Yes' : 'No';
+    document.getElementById('sum-bottom-caps').textContent = bottomCaps ? 'Yes' : 'No';
+
+    if (notes) {
+      document.getElementById('sum-notes').textContent = notes;
+      document.getElementById('sum-notes-row').hidden = false;
+    }
+
     document.addEventListener('DOMContentLoaded', function(){
       if (window.lucide) { window.lucide.createIcons(); }
     });
+
+    function simplifyFont(fontStack){
+      if (!fontStack) return null;
+      const alias = {
+        'Poppins': 'Poppins',
+        'Inter': 'Inter',
+        'Montserrat': 'Montserrat',
+        'Lora': 'Lora',
+        'Merriweather': 'Merriweather',
+        'Playfair Display': 'Playfair Display',
+        'Great Vibes': 'Great Vibes',
+        'Roboto Slab': 'Roboto Slab',
+        'Oswald': 'Oswald'
+      };
+      const parts = fontStack.split(',');
+      const primary = parts.length ? parts[0].trim().replace(/['"]/g, '') : null;
+      return alias[primary] || primary || null;
+    }
+
+    function mapColor(hex){
+      if (!hex) return null;
+      const normalized = hex.toLowerCase();
+      const colors = {
+        '#181820': 'Black',
+        '#d2c3a3': 'Beige',
+        '#6f263d': 'Burgendy',
+        '#f4c3cc': 'Carnation Pink',
+        '#babd8b': 'Celedon',
+        '#4e3629': 'Chocolate Brown',
+        '#353f63': 'Deep Blue',
+        '#77c5d5': 'Geyser',
+        '#d13f78': 'Hot Pink',
+        '#48a6d4': 'Ice Blue',
+        '#c2e189': 'Key Lime',
+        '#bf94be': 'Lilac',
+        '#6fab44': 'Lime Green',
+        '#c92866': 'Lipstick',
+        '#826d43': 'Metallic Gold',
+        '#808284': 'Metallic Silver',
+        '#9b945f': 'Olive Green',
+        '#f36122': 'Orange',
+        '#ff7321': 'Pastel Orange',
+        '#6a4474': 'Plum',
+        '#836baa': 'Purple',
+        '#a5222d': 'Red',
+        '#f68cb8': 'Soft Pink',
+        '#798284': 'Storm Grey',
+        '#b08d67': 'Tan',
+        '#008595': 'Teal',
+        '#006bb5': 'Traffic Blue',
+        '#009fa0': 'Turquoise',
+        '#cbc4bc': 'Warm Grey',
+        '#fdfbfb': 'White',
+        '#ffca17': 'Yellow',
+        '#a0927d': 'Tumbleweed',
+        '#e0e0e0': 'Light Gray',
+        '#8eb3c9': 'Misty Blue',
+        '#94cbce': 'BeachHouse',
+        '#6ddbc7': 'Mint',
+        '#6d4f58': 'Eggplant',
+        '#99355c': 'Berry',
+        '#c9853c': 'Rust Orange',
+        '#ffe98f': 'Buttercream',
+        '#e8a72e': 'Honey',
+        '#ed7b62': 'Coral',
+        '#d60718': 'Cherry Red'
+      };
+      return colors[normalized] || normalized;
+    }
+
+    function formatPosition(x, y){
+      if (x == null || y == null) return '—';
+      const xVal = Number(x);
+      const yVal = Number(y);
+      if (!Number.isFinite(xVal) || !Number.isFinite(yVal)) return '—';
+      return `X ${xVal.toFixed(1)}% / Y ${yVal.toFixed(1)}%`;
+    }
   </script>
 </body>
 </html>
