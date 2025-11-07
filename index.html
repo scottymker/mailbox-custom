@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="styles.css"/>
   <!-- Lucide icons (non-React) -->
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <!-- html2canvas for PNG export (optional - graceful fallback if unavailable) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
   <main>
@@ -18,7 +20,10 @@
       <div class="container hero-inner">
         <div class="brand">
           <div class="logo">
-            <i data-lucide="mailbox" aria-hidden="true"></i>
+            <img src="logo.png" alt="Wall Decor Plus More" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="logo-placeholder" style="display:none;">
+              <span>WDPM</span>
+            </div>
           </div>
           <div class="brand-text">
             <h1>Wall Decor Plus More</h1>
@@ -26,13 +31,8 @@
           </div>
         </div>
         <p class="hero-sub">
-          Type in your address, try fonts and colors, and mirror the artwork for the opposite side of the box—all before you submit.
+          Type in your address, choose fonts and colors, then add to cart. Your design saves automatically as you customize—no need to manually save your progress.
         </p>
-        <ul class="hero-points">
-          <li><i data-lucide="sparkles" aria-hidden="true"></i> Instant feedback with every change</li>
-          <li><i data-lucide="palette" aria-hidden="true"></i> Curated vinyl colors and premium fonts</li>
-          <li><i data-lucide="ruler" aria-hidden="true"></i> Proportion sliders tuned to real decal sizing</li>
-        </ul>
       </div>
       <div class="shapes">
         <span class="blob b1"></span>
@@ -67,17 +67,19 @@
               <i data-lucide="ruler" aria-hidden="true"></i>
               <span>Show guides</span>
             </button>
+            <button type="button" class="pill" id="mirror-toggle" aria-pressed="false">
+              <i data-lucide="flip-horizontal" aria-hidden="true"></i>
+              <span>Mirror mode</span>
+            </button>
+            <button type="button" class="pill" id="export-btn">
+              <i data-lucide="download" aria-hidden="true"></i>
+              <span>Export PNG</span>
+            </button>
           </div>
           <div class="preview-legend">
             <span class="dot"></span>
             <div class="legend-copy">
-              <p><strong>How to use the preview</strong></p>
-              <ol>
-                <li>Drag the top or bottom text to match your mailbox positioning.</li>
-                <li>Use the color swatches to see your lettering options.</li>
-                <li>Update the text fields on the right; every change updates instantly.</li>
-                <li>Submit the form to generate a summary you can send to our team.</li>
-              </ol>
+              <p><strong>Tip:</strong> Drag text to reposition. All changes update instantly.</p>
             </div>
           </div>
         </div>
@@ -116,6 +118,20 @@
 
             <fieldset>
               <legend>Style</legend>
+              <div class="field slider-field">
+                <label for="top-size-slider">
+                  Top text size
+                  <span class="slider-value" id="top-size-value">20px</span>
+                </label>
+                <input type="range" id="top-size-slider" name="topSizeSlider" min="12" max="40" step="1" value="20"/>
+              </div>
+              <div class="field slider-field">
+                <label for="bottom-size-slider">
+                  Bottom text size
+                  <span class="slider-value" id="bottom-size-value">20px</span>
+                </label>
+                <input type="range" id="bottom-size-slider" name="bottomSizeSlider" min="12" max="40" step="1" value="20"/>
+              </div>
               <div class="field">
                 <label for="font-select">Font</label>
                 <select id="font-select" name="font">
@@ -237,15 +253,15 @@
             <fieldset>
               <legend>Finishing touches</legend>
               <div class="field">
-                <label for="notes">Notes for the maker <span class="hint">(optional)</span></label>
+                <label for="notes">Notes for our team or designer <span class="hint">(optional)</span></label>
                 <textarea id="notes" name="notes" rows="2" maxlength="120" placeholder="Include special spacing, decal size, or installation notes."></textarea>
               </div>
             </fieldset>
 
             <div class="group inline">
-              <button class="btn" type="submit">
-                <i data-lucide="send"></i>
-                <span>Save configuration</span>
+              <button class="btn" type="submit" id="add-to-cart-btn">
+                <i data-lucide="shopping-cart"></i>
+                <span>Add to Cart</span>
               </button>
               <button class="btn ghost" type="reset" id="reset-btn">
                 <i data-lucide="rotate-ccw"></i>
@@ -253,7 +269,7 @@
               </button>
             </div>
 
-            <p class="note">Ready for production? Submit this configuration and a designer will follow up with a printable proof.</p>
+            <p class="note">Review your design above, then add to cart when ready.</p>
           </form>
         </div>
       </div>

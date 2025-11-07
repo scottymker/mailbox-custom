@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard • Mailbox Customizer</title>
+  <meta name="description" content="Manage orders, storefront settings, and mailbox design templates for Mailbox Customizer."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600&family=Lora:wght@500;600&family=Merriweather:wght@600&family=Montserrat:wght@500;600&family=Oswald:wght@500&family=Playfair+Display:wght@600&family=Poppins:wght@600;700&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="admin.css"/>
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="container">
+      <div class="admin-brand">
+        <div class="admin-logo">
+          <i data-lucide="settings" aria-hidden="true"></i>
+        </div>
+        <div>
+          <h1>Mailbox Customizer Admin</h1>
+          <p class="admin-meta">
+            <span><i data-lucide="clock"></i><span id="dashboard-timestamp">Loading…</span></span>
+            <span><i data-lucide="shield-check"></i>Internal Dashboard</span>
+          </p>
+        </div>
+      </div>
+      <div class="badge">
+        <i data-lucide="lock"></i>
+        Staff Access
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main container">
+    <nav class="admin-nav" aria-label="Admin sections">
+      <div class="nav-title">Control Center</div>
+      <button class="nav-btn active" data-section="orders">
+        <i data-lucide="clipboard-list"></i>
+        <span>Orders</span>
+      </button>
+      <button class="nav-btn" data-section="settings">
+        <i data-lucide="sliders-horizontal"></i>
+        <span>Settings</span>
+      </button>
+      <button class="nav-btn" data-section="designer">
+        <i data-lucide="palette"></i>
+        <span>Mailbox Designer</span>
+      </button>
+      <button class="nav-btn" data-section="guide">
+        <i data-lucide="book-open-check"></i>
+        <span>Guide</span>
+      </button>
+    </nav>
+
+    <section class="admin-content">
+      <article class="admin-card" id="orders-section">
+        <header>
+          <h2>Orders</h2>
+          <p class="admin-meta">Review incoming decal requests, update status, and flag designs needing proofs.</p>
+        </header>
+        <div class="table-wrap">
+          <table class="orders-table" aria-describedby="orders-summary">
+            <thead>
+              <tr>
+                <th scope="col">Order #</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Top line</th>
+                <th scope="col">Bottom line</th>
+                <th scope="col">Decal color</th>
+                <th scope="col">Placed</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body">
+              <tr><td colspan="7">Loading orders…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="admin-meta" id="orders-summary">Statuses sync locally—export CSV from the action menu when you need to share with production.</p>
+      </article>
+
+      <article class="admin-card hidden" id="settings-section">
+        <header>
+          <h2>Storefront Settings</h2>
+          <p class="admin-meta">Control how the customer-facing builder introduces your brand and follow-up messaging.</p>
+        </header>
+
+        <form class="settings-form" id="settings-form">
+          <div class="field">
+            <label for="store-name">Business name</label>
+            <input type="text" id="store-name" name="storeName" required/>
+          </div>
+          <div class="field">
+            <label for="store-email">Order inbox</label>
+            <input type="email" id="store-email" name="email" required/>
+          </div>
+          <div class="field">
+            <label for="store-phone">Contact phone</label>
+            <input type="tel" id="store-phone" name="phone" placeholder="(555) 123-4567"/>
+          </div>
+          <div class="field">
+            <label for="store-message">Auto-reply message</label>
+            <textarea id="store-message" name="message" maxlength="240"></textarea>
+            <small class="admin-meta">Sent immediately after form submission; keep it friendly and action-oriented.</small>
+          </div>
+          <div class="settings-actions">
+            <button type="submit" class="btn-primary">Save settings</button>
+            <button type="button" class="btn-outline" id="settings-reset">Revert changes</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="admin-card hidden" id="designer-section">
+        <header>
+          <h2>Mailbox Designer</h2>
+          <p class="admin-meta">Create ready-to-use templates that appear on the customer builder. Every design mirrors the live preview layout with design-specific imagery and text positions.</p>
+        </header>
+
+        <div class="designer-layout">
+          <aside>
+            <div class="design-list" id="design-list" role="tablist" aria-label="Mailbox designs">
+              <!-- dynamic -->
+            </div>
+            <div class="designer-actions">
+              <button class="btn-outline" type="button" id="add-design">
+                <i data-lucide="plus"></i>
+                Add new design
+              </button>
+            </div>
+          </aside>
+
+          <div class="designer-editor" id="designer-editor">
+            <div class="design-preview" aria-live="polite">
+              <img id="design-preview-img" src="mailbox_mockup_decal.png" alt="Mailbox design preview"/>
+              <div class="preview-text top" id="design-preview-top">1234 Bourbon Drive</div>
+              <div class="preview-text bottom" id="design-preview-bottom">The Andersons</div>
+            </div>
+
+            <form class="designer-form" id="design-form">
+              <div class="designer-grid">
+                <div class="field">
+                  <label for="design-name">Template name</label>
+                  <input type="text" id="design-name" name="name" required/>
+                </div>
+                <div class="field">
+                  <label for="design-font">Default font</label>
+                  <select id="design-font" name="font">
+                    <option value="Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Poppins</option>
+                    <option value="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Inter</option>
+                    <option value="'Montserrat', Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">Montserrat</option>
+                    <option value="'Lora', Georgia, 'Times New Roman', Times, serif">Lora</option>
+                    <option value="'Merriweather', Georgia, 'Times New Roman', Times, serif">Merriweather</option>
+                    <option value="'Playfair Display', Georgia, 'Times New Roman', Times, serif">Playfair Display</option>
+                    <option value="'Great Vibes', 'Brush Script MT', cursive">Great Vibes</option>
+                    <option value="'Roboto Slab', 'Times New Roman', Times, serif">Roboto Slab</option>
+                    <option value="'Oswald', 'Arial Narrow', Inter, sans-serif">Oswald</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="designer-grid">
+                <div class="field">
+                  <label for="design-top-text">Default top line</label>
+                  <input type="text" id="design-top-text" name="topText" maxlength="32"/>
+                </div>
+                <div class="field">
+                  <label for="design-bottom-text">Default bottom line</label>
+                  <input type="text" id="design-bottom-text" name="bottomText" maxlength="32"/>
+                </div>
+              </div>
+
+              <div class="designer-grid">
+                <div class="field">
+                  <label for="design-color">Default color</label>
+                  <select id="design-color" name="color">
+                    <option value="#fdfbfb" data-label="White">White</option>
+                    <option value="#181820" data-label="Black">Black</option>
+                    <option value="#D2C3A3" data-label="Beige">Beige</option>
+                    <option value="#6F263D" data-label="Burgendy">Burgendy</option>
+                    <option value="#F4C3CC" data-label="Carnation Pink">Carnation Pink</option>
+                    <option value="#BABD8B" data-label="Celedon">Celedon</option>
+                    <option value="#4E3629" data-label="Chocolate Brown">Chocolate Brown</option>
+                    <option value="#353F63" data-label="Deep Blue">Deep Blue</option>
+                    <option value="#77C5D5" data-label="Geyser">Geyser</option>
+                    <option value="#D13F78" data-label="Hot Pink">Hot Pink</option>
+                    <option value="#48A6D4" data-label="Ice Blue">Ice Blue</option>
+                    <option value="#C2E189" data-label="Key Lime">Key Lime</option>
+                    <option value="#BF94BE" data-label="Lilac">Lilac</option>
+                    <option value="#6FAB44" data-label="Lime Green">Lime Green</option>
+                    <option value="#C92866" data-label="Lipstick">Lipstick</option>
+                    <option value="#826D43" data-label="Metallic Gold">Metallic Gold</option>
+                    <option value="#808284" data-label="Metallic Silver">Metallic Silver</option>
+                    <option value="#9B945F" data-label="Olive Green">Olive Green</option>
+                    <option value="#F36122" data-label="Orange">Orange</option>
+                    <option value="#FF7321" data-label="Pastel Orange">Pastel Orange</option>
+                    <option value="#6A4474" data-label="Plum">Plum</option>
+                    <option value="#836BAA" data-label="Purple">Purple</option>
+                    <option value="#A5222D" data-label="Red">Red</option>
+                    <option value="#F68CB8" data-label="Soft Pink">Soft Pink</option>
+                    <option value="#798284" data-label="Storm Grey">Storm Grey</option>
+                    <option value="#B08D67" data-label="Tan">Tan</option>
+                    <option value="#008595" data-label="Teal">Teal</option>
+                    <option value="#006BB5" data-label="Traffic Blue">Traffic Blue</option>
+                    <option value="#009FA0" data-label="Turquoise">Turquoise</option>
+                    <option value="#CBC4BC" data-label="Warm Grey">Warm Grey</option>
+                    <option value="#FFCA17" data-label="Yellow">Yellow</option>
+                    <option value="#A0927D" data-label="Tumbleweed">Tumbleweed</option>
+                    <option value="#E0E0E0" data-label="Light Gray">Light Gray</option>
+                    <option value="#8EB3C9" data-label="Misty Blue">Misty Blue</option>
+                    <option value="#94CBCE" data-label="BeachHouse">BeachHouse</option>
+                    <option value="#6DDBC7" data-label="Mint">Mint</option>
+                    <option value="#6D4F58" data-label="Eggplant">Eggplant</option>
+                    <option value="#99355C" data-label="Berry">Berry</option>
+                    <option value="#C9853C" data-label="Rust Orange">Rust Orange</option>
+                    <option value="#FFE98F" data-label="Buttercream">Buttercream</option>
+                    <option value="#E8A72E" data-label="Honey">Honey</option>
+                    <option value="#ED7B62" data-label="Coral">Coral</option>
+                    <option value="#D60718" data-label="Cherry Red">Cherry Red</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="design-image">Background image</label>
+                  <input type="file" id="design-image" accept="image/*"/>
+                  <small class="admin-meta">Uploads stay local to this browser. Export designs JSON before clearing cache.</small>
+                </div>
+              </div>
+
+              <div class="designer-grid slider-stack">
+                <div class="slider-group">
+                  <label for="top-x">Top line horizontal (<span id="top-x-output">50</span>%)</label>
+                  <input type="range" id="top-x" min="5" max="95" step="0.1">
+                </div>
+                <div class="slider-group">
+                  <label for="top-y">Top line vertical (<span id="top-y-output">30</span>%)</label>
+                  <input type="range" id="top-y" min="10" max="90" step="0.1">
+                </div>
+                <div class="slider-group">
+                  <label for="bottom-x">Bottom line horizontal (<span id="bottom-x-output">50</span>%)</label>
+                  <input type="range" id="bottom-x" min="5" max="95" step="0.1">
+                </div>
+                <div class="slider-group">
+                  <label for="bottom-y">Bottom line vertical (<span id="bottom-y-output">70</span>%)</label>
+                  <input type="range" id="bottom-y" min="10" max="90" step="0.1">
+                </div>
+              </div>
+
+              <div class="designer-actions">
+                <button type="button" class="btn-outline" id="design-duplicate">
+                  <i data-lucide="copy"></i>
+                  Duplicate
+                </button>
+                <button type="button" class="btn-outline" id="design-delete">
+                  <i data-lucide="trash-2"></i>
+                  Delete
+                </button>
+                <button type="submit" class="btn-primary">
+                  <i data-lucide="save"></i>
+                  Save design
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </article>
+
+      <article class="admin-card hidden" id="guide-section">
+        <header>
+          <h2>Workflow Guide</h2>
+          <p class="admin-meta">Reference for the team—how orders flow from the customer site through production.</p>
+        </header>
+        <div class="empty-state">
+          <i data-lucide="life-buoy"></i>
+          <p>Draft notes for your team here: production checklists, vinyl inventory, installation tips. Start by duplicating the designer template or export order data from the Orders tab.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="toast" id="admin-toast" role="status" aria-live="polite"></div>
+
+  <script src="admin.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (window.lucide) { window.lucide.createIcons(); }
+    });
+  </script>
+</body>
+</html>

@@ -16,28 +16,29 @@
       <div class="success-mark">
         <i data-lucide="badge-check" aria-hidden="true"></i>
       </div>
-      <h1 class="success-title">Customization submitted!</h1>
+      <h1 class="success-title">Thank you, <span id="customer-name">valued customer</span>!</h1>
       <p class="success-sub">
-        Thanks for using <strong>Mailbox Customizer</strong>. A copy of your live settings is listed below—feel free to download or share with our team.
+        Your design has been added to your cart. Here's a preview of your customized mailbox:
       </p>
-      <div class="summary">
-        <div class="row"><span>Top line</span><strong id="sum-top">—</strong></div>
-        <div class="row"><span>Bottom line</span><strong id="sum-bottom">—</strong></div>
-        <div class="row"><span>Font</span><strong id="sum-font">—</strong></div>
-        <div class="row color-row"><span>Decal color</span>
-          <strong id="sum-color">
-            <span class="color-chip" id="sum-color-chip" aria-hidden="true"></span>
-            <span id="sum-color-label">—</span>
-          </strong>
-        </div>
-        <div class="row"><span>Top line in caps</span><strong id="sum-top-caps">—</strong></div>
-        <div class="row"><span>Bottom line in caps</span><strong id="sum-bottom-caps">—</strong></div>
-        <div class="row notes-row" id="sum-notes-row" hidden><span>Notes</span><strong id="sum-notes">—</strong></div>
+
+      <div class="success-preview">
+        <img src="mailbox52.jpg" alt="Your customized mailbox" class="success-mailbox-img"/>
+        <div class="success-decal-text success-top" id="preview-success-top">1234 Bourbon Drive</div>
+        <div class="success-decal-text success-bottom" id="preview-success-bottom">The Andersons</div>
       </div>
-      <a href="index.html" class="btn">
-        <i data-lucide="home"></i>
-        <span>Back home</span>
-      </a>
+
+      <p class="success-note">This design is saved in your cart. Complete your order to have it made!</p>
+
+      <div class="success-actions">
+        <a href="https://www.walldecorplusmore.com" class="btn ghost" id="continue-shopping">
+          <i data-lucide="arrow-left"></i>
+          <span>Continue Shopping</span>
+        </a>
+        <a href="https://www.walldecorplusmore.com/cart.php" class="btn" id="view-cart">
+          <i data-lucide="shopping-cart"></i>
+          <span>View Cart & Checkout</span>
+        </a>
+      </div>
     </div>
   </main>
   <script>
@@ -47,27 +48,40 @@
       return value && value.trim().length ? value.trim() : null;
     };
     const getBool = key => params.get(key) === 'true';
-    const topLine = read('top') || '—';
-    const bottomLine = read('bottom') || '—';
-    const fontName = read('fontName') || simplifyFont(params.get('font'));
-    const colorName = read('colorName') || mapColor(read('color'));
-    const colorHex = read('color') || '#ffffff';
+    const topLine = read('top') || '1234 Bourbon Drive';
+    const bottomLine = read('bottom') || 'The Andersons';
+    const font = read('font') || "Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif";
+    const colorHex = read('color') || '#fdfbfb';
     const topCaps = getBool('topCaps');
     const bottomCaps = getBool('bottomCaps');
-    const notes = read('notes');
+    const topSize = read('topSize') || '20';
+    const bottomSize = read('bottomSize') || '20';
+    const topX = read('topX') || '50';
+    const topY = read('topY') || '32';
+    const bottomX = read('bottomX') || '50';
+    const bottomY = read('bottomY') || '74';
 
-    document.getElementById('sum-top').textContent = topLine;
-    document.getElementById('sum-bottom').textContent = bottomLine;
-    document.getElementById('sum-font').textContent = fontName || '—';
-    document.getElementById('sum-color-label').textContent = colorName || colorHex || '—';
-    document.getElementById('sum-color-chip').style.setProperty('--chip', colorHex || '#ffffff');
-    document.getElementById('sum-top-caps').textContent = topCaps ? 'Yes' : 'No';
-    document.getElementById('sum-bottom-caps').textContent = bottomCaps ? 'Yes' : 'No';
+    // Set customer name
+    document.getElementById('customer-name').textContent = bottomLine;
 
-    if (notes) {
-      document.getElementById('sum-notes').textContent = notes;
-      document.getElementById('sum-notes-row').hidden = false;
-    }
+    // Apply design to preview
+    const topPreview = document.getElementById('preview-success-top');
+    const bottomPreview = document.getElementById('preview-success-bottom');
+
+    topPreview.textContent = topCaps ? topLine.toUpperCase() : topLine;
+    bottomPreview.textContent = bottomCaps ? bottomLine.toUpperCase() : bottomLine;
+
+    topPreview.style.fontFamily = font;
+    topPreview.style.color = colorHex;
+    topPreview.style.fontSize = topSize + 'px';
+    topPreview.style.left = topX + '%';
+    topPreview.style.top = topY + '%';
+
+    bottomPreview.style.fontFamily = font;
+    bottomPreview.style.color = colorHex;
+    bottomPreview.style.fontSize = bottomSize + 'px';
+    bottomPreview.style.left = bottomX + '%';
+    bottomPreview.style.top = bottomY + '%';
 
     document.addEventListener('DOMContentLoaded', function(){
       if (window.lucide) { window.lucide.createIcons(); }
@@ -142,13 +156,6 @@
       return colors[normalized] || normalized;
     }
 
-    function formatPosition(x, y){
-      if (x == null || y == null) return '—';
-      const xVal = Number(x);
-      const yVal = Number(y);
-      if (!Number.isFinite(xVal) || !Number.isFinite(yVal)) return '—';
-      return `X ${xVal.toFixed(1)}% / Y ${yVal.toFixed(1)}%`;
-    }
   </script>
 </body>
 </html>
