@@ -119,28 +119,52 @@
     const color = getSelectedColorRadio();
     if (!color) return;
     const colorValue = color.value;
+
+    // Apply the same color to both text and design
     previewTop.style.color = colorValue;
     previewBottom.style.color = colorValue;
 
-    // Apply color to the decal design layer as well
+    // Apply the same color to the decal design using CSS filter
     if (decalDesign) {
-      decalDesign.style.filter = `brightness(0) saturate(100%) invert(${isLightColor(colorValue) ? 100 : 0}%)`;
-      decalDesign.style.opacity = '1';
-      // Use CSS variables to set the color
-      document.documentElement.style.setProperty('--decal-color', colorValue);
+      // Convert to grayscale then colorize
+      const r = parseInt(colorValue.slice(1,3), 16) / 255;
+      const g = parseInt(colorValue.slice(3,5), 16) / 255;
+      const b = parseInt(colorValue.slice(5,7), 16) / 255;
+
+      // Calculate hue rotation
+      const max = Math.max(r, g, b);
+      const min = Math.min(r, g, b);
+      let h = 0;
+
+      if (max !== min) {
+        const d = max - min;
+        if (max === r) {
+          h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+        } else if (max === g) {
+          h = ((b - r) / d + 2) / 6;
+        } else {
+          h = ((r - g) / d + 4) / 6;
+        }
+      }
+
+      const hueRotate = h * 360;
+      const saturation = max === 0 ? 0 : (max - min) / max;
+      const brightness = (max * 100);
+
+      // Apply filter to make design match the selected color
+      decalDesign.style.filter = `
+        brightness(0)
+        saturate(100%)
+        invert(${brightness > 50 ? 1 : 0})
+        sepia(1)
+        saturate(${saturation * 10})
+        hue-rotate(${hueRotate}deg)
+      `.replace(/\s+/g, ' ').trim();
     }
 
     if (colorLabelInput){
       colorLabelInput.value = color.dataset.label || colorValue;
     }
-  }
-
-  function isLightColor(hex) {
-    const r = parseInt(hex.slice(1,3), 16);
-    const g = parseInt(hex.slice(3,5), 16);
-    const b = parseInt(hex.slice(5,7), 16);
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-    return brightness > 128;
   }
 
   function updateMailboxColor(){
