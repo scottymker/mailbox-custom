@@ -223,12 +223,15 @@ p{margin:.25rem 0 .75rem}
   color:#fff;
   font-weight:700;
   text-transform:none;
-  text-align:center;
+  text-align:left;
   text-shadow:0 1px 1px rgba(0,0,0,.18),0 0 18px rgba(0,0,0,.12);
   white-space:nowrap;
   pointer-events:none;
   user-select:none;
-  font-size:20px;
+  font-size:16px;
+  max-width:52%;
+  overflow:hidden;
+  text-overflow:ellipsis;
   z-index:2;
 }
 .decal-text.top{
