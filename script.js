@@ -3,7 +3,7 @@
   const form = document.getElementById('decal-form');
   const previewTop = document.getElementById('preview-top');
   const previewBottom = document.getElementById('preview-bottom');
-  const mailboxImg = document.getElementById('mailbox-img');
+  const decalDesign = document.getElementById('decal-design');
 
   if (!form || !previewTop || !previewBottom) return;
 
@@ -121,25 +121,38 @@
     const colorValue = color.value;
     previewTop.style.color = colorValue;
     previewBottom.style.color = colorValue;
+
+    // Apply color to the decal design layer as well
+    if (decalDesign) {
+      decalDesign.style.filter = `brightness(0) saturate(100%) invert(${isLightColor(colorValue) ? 100 : 0}%)`;
+      decalDesign.style.opacity = '1';
+      // Use CSS variables to set the color
+      document.documentElement.style.setProperty('--decal-color', colorValue);
+    }
+
     if (colorLabelInput){
       colorLabelInput.value = color.dataset.label || colorValue;
     }
   }
 
+  function isLightColor(hex) {
+    const r = parseInt(hex.slice(1,3), 16);
+    const g = parseInt(hex.slice(3,5), 16);
+    const b = parseInt(hex.slice(5,7), 16);
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness > 128;
+  }
+
   function updateMailboxColor(){
     const color = getSelectedMailboxColorRadio();
-    if (!color || !mailboxImg) return;
+    if (!color || !decalDesign) return;
     const colorValue = color.value;
 
-    // Apply color overlay using CSS filter
-    // Convert hex to RGB for filter calculations
-    const r = parseInt(colorValue.slice(1,3), 16);
-    const g = parseInt(colorValue.slice(3,5), 16);
-    const b = parseInt(colorValue.slice(5,7), 16);
+    // Apply color filter to the decal design layer to match text color
+    // This changes the decorative line color to match the selected color
+    const textColor = getSelectedColorValue();
 
-    // Create a colored overlay effect
-    mailboxImg.style.filter = `brightness(0.95) sepia(0.3) hue-rotate(${(r+g+b)/3-128}deg) saturate(1.2)`;
-
+    // For now, just store the selection
     if (mailboxColorLabel){
       mailboxColorLabel.value = color.dataset.label || colorValue;
     }
