@@ -53,33 +53,16 @@
             <h3>Live preview</h3>
           </div>
           <div class="preview-wrap" id="preview-stage">
-            <img src="mailbox_mockup_decal.png" alt="Mailbox preview" class="preview-img"/>
-            <div class="preview-guides" aria-hidden="true">
-              <span class="guide guide-top"></span>
-              <span class="guide guide-center"></span>
-              <span class="guide guide-bottom"></span>
+            <img src="mailbox21_decal.png" alt="Mailbox preview" class="mailbox-img" id="mailbox-img"/>
+            <div class="text-overlay">
+              <div class="decal-text top" id="preview-top" data-placeholder="1234 Bourbon Drive">1234 Bourbon Drive</div>
+              <div class="decal-text bottom" id="preview-bottom" data-placeholder="The Andersons">The Andersons</div>
             </div>
-            <div class="decal-text top" id="preview-top" data-placeholder="1234 Bourbon Drive">1234 Bourbon Drive</div>
-            <div class="decal-text bottom" id="preview-bottom" data-placeholder="The Andersons">The Andersons</div>
-          </div>
-          <div class="preview-actions">
-            <button type="button" class="pill" id="guides-toggle" aria-pressed="false">
-              <i data-lucide="ruler" aria-hidden="true"></i>
-              <span>Show guides</span>
-            </button>
-            <button type="button" class="pill" id="mirror-toggle" aria-pressed="false">
-              <i data-lucide="flip-horizontal" aria-hidden="true"></i>
-              <span>Mirror mode</span>
-            </button>
-            <button type="button" class="pill" id="export-btn">
-              <i data-lucide="download" aria-hidden="true"></i>
-              <span>Export PNG</span>
-            </button>
           </div>
           <div class="preview-legend">
             <span class="dot"></span>
             <div class="legend-copy">
-              <p><strong>Tip:</strong> Drag text to reposition. All changes update instantly.</p>
+              <p><strong>Tip:</strong> All changes update instantly in the preview above.</p>
             </div>
           </div>
         </div>
@@ -104,34 +87,10 @@
                   <span class="counter" data-counter="bottom">13/32</span>
                 </div>
               </div>
-              <div class="field switches">
-                <label class="switch">
-                  <input type="checkbox" id="top-caps" name="topCaps" value="true">
-                  <span>Top line in all caps</span>
-                </label>
-                <label class="switch">
-                  <input type="checkbox" id="bottom-caps" name="bottomCaps" value="true">
-                  <span>Bottom line in all caps</span>
-                </label>
-              </div>
             </fieldset>
 
             <fieldset>
               <legend>Style</legend>
-              <div class="field slider-field">
-                <label for="top-size-slider">
-                  Top text size
-                  <span class="slider-value" id="top-size-value">20px</span>
-                </label>
-                <input type="range" id="top-size-slider" name="topSizeSlider" min="12" max="40" step="1" value="20"/>
-              </div>
-              <div class="field slider-field">
-                <label for="bottom-size-slider">
-                  Bottom text size
-                  <span class="slider-value" id="bottom-size-value">20px</span>
-                </label>
-                <input type="range" id="bottom-size-slider" name="bottomSizeSlider" min="12" max="40" step="1" value="20"/>
-              </div>
               <div class="field">
                 <label for="font-select">Font</label>
                 <select id="font-select" name="font">
@@ -145,7 +104,6 @@
                   <option value="'Roboto Slab', 'Times New Roman', Times, serif" data-label="Roboto Slab">Roboto Slab</option>
                   <option value="'Oswald', 'Arial Narrow', Inter, sans-serif" data-label="Oswald">Oswald</option>
                 </select>
-                <div class="font-preview" id="font-preview">AaBb 123</div>
                 <input type="hidden" id="font-label" name="fontName" value="Poppins"/>
               </div>
 
@@ -201,6 +159,25 @@
                 <input type="hidden" id="top-y-input" name="topY" value="32"/>
                 <input type="hidden" id="bottom-x-input" name="bottomX" value="50"/>
                 <input type="hidden" id="bottom-y-input" name="bottomY" value="74"/>
+              </div>
+
+              <div class="field">
+                <span class="label">Mailbox color</span>
+                <div class="swatches" role="radiogroup" aria-label="Mailbox color">
+                  <input type="radio" id="mb-silver" name="mailboxColor" value="#C0C0C0" data-label="Silver" checked>
+                  <label class="swatch" for="mb-silver" style="--sw:#C0C0C0" title="Silver"></label>
+                  <input type="radio" id="mb-black" name="mailboxColor" value="#2C2C2C" data-label="Black">
+                  <label class="swatch" for="mb-black" style="--sw:#2C2C2C" title="Black"></label>
+                  <input type="radio" id="mb-white" name="mailboxColor" value="#F5F5F5" data-label="White">
+                  <label class="swatch" for="mb-white" style="--sw:#F5F5F5" title="White"></label>
+                  <input type="radio" id="mb-green" name="mailboxColor" value="#3D5A3D" data-label="Green">
+                  <label class="swatch" for="mb-green" style="--sw:#3D5A3D" title="Green"></label>
+                  <input type="radio" id="mb-bronze" name="mailboxColor" value="#8B6F47" data-label="Bronze">
+                  <label class="swatch" for="mb-bronze" style="--sw:#8B6F47" title="Bronze"></label>
+                  <input type="radio" id="mb-navy" name="mailboxColor" value="#1E3A5F" data-label="Navy">
+                  <label class="swatch" for="mb-navy" style="--sw:#1E3A5F" title="Navy"></label>
+                </div>
+                <input type="hidden" id="mailbox-color-label" name="mailboxColorName" value="Silver"/>
               </div>
 
             </fieldset>
