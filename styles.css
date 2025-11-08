@@ -166,14 +166,22 @@ p{margin:.25rem 0 .75rem}
 }
 .decal-design{
   width:100%;
-  height:auto;
+  aspect-ratio:1/1;
   display:block;
   position:absolute;
   top:0;
   left:0;
   z-index:2;
   pointer-events:none;
-  vertical-align:top;
+  background-color:#fdfbfb;
+  -webkit-mask-image:url(mailbox21_decal_edit.png);
+  -webkit-mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-image:url(mailbox21_decal_edit.png);
+  mask-size:100% 100%;
+  mask-repeat:no-repeat;
+  mask-position:center;
 }
 .text-overlay{
   position:absolute;

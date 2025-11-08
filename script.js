@@ -120,58 +120,18 @@
     if (!color) return;
     const colorValue = color.value;
 
-    // Apply the same color to both text and design
+    // Apply the exact same hex color to both text and design
     previewTop.style.color = colorValue;
     previewBottom.style.color = colorValue;
 
-    // Apply the same color to the decal design layer
+    // Apply the exact same hex color to the decal design (using CSS mask)
     if (decalDesign) {
-      // Simple approach: use CSS filter to recolor the design
-      // First convert black to white, then apply the color
-      decalDesign.style.filter = `
-        brightness(0)
-        invert(1)
-        sepia(1)
-        saturate(5)
-        hue-rotate(${getHueRotation(colorValue)}deg)
-      `.replace(/\s+/g, ' ').trim();
+      decalDesign.style.backgroundColor = colorValue;
     }
 
     if (colorLabelInput){
       colorLabelInput.value = color.dataset.label || colorValue;
     }
-  }
-
-  function getHueRotation(hex) {
-    // Convert hex to RGB
-    const r = parseInt(hex.slice(1,3), 16);
-    const g = parseInt(hex.slice(3,5), 16);
-    const b = parseInt(hex.slice(5,7), 16);
-
-    // Convert RGB to HSL to get hue
-    const rNorm = r / 255;
-    const gNorm = g / 255;
-    const bNorm = b / 255;
-
-    const max = Math.max(rNorm, gNorm, bNorm);
-    const min = Math.min(rNorm, gNorm, bNorm);
-    const delta = max - min;
-
-    let hue = 0;
-    if (delta !== 0) {
-      if (max === rNorm) {
-        hue = ((gNorm - bNorm) / delta) % 6;
-      } else if (max === gNorm) {
-        hue = (bNorm - rNorm) / delta + 2;
-      } else {
-        hue = (rNorm - gNorm) / delta + 4;
-      }
-      hue *= 60;
-      if (hue < 0) hue += 360;
-    }
-
-    // Adjust for sepia base color (around 38 degrees)
-    return hue - 38;
   }
 
   function updateMailboxColor(){
