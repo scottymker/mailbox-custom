@@ -124,47 +124,54 @@
     previewTop.style.color = colorValue;
     previewBottom.style.color = colorValue;
 
-    // Apply the same color to the decal design using CSS filter
+    // Apply the same color to the decal design layer
     if (decalDesign) {
-      // Convert to grayscale then colorize
-      const r = parseInt(colorValue.slice(1,3), 16) / 255;
-      const g = parseInt(colorValue.slice(3,5), 16) / 255;
-      const b = parseInt(colorValue.slice(5,7), 16) / 255;
-
-      // Calculate hue rotation
-      const max = Math.max(r, g, b);
-      const min = Math.min(r, g, b);
-      let h = 0;
-
-      if (max !== min) {
-        const d = max - min;
-        if (max === r) {
-          h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
-        } else if (max === g) {
-          h = ((b - r) / d + 2) / 6;
-        } else {
-          h = ((r - g) / d + 4) / 6;
-        }
-      }
-
-      const hueRotate = h * 360;
-      const saturation = max === 0 ? 0 : (max - min) / max;
-      const brightness = (max * 100);
-
-      // Apply filter to make design match the selected color
+      // Simple approach: use CSS filter to recolor the design
+      // First convert black to white, then apply the color
       decalDesign.style.filter = `
         brightness(0)
-        saturate(100%)
-        invert(${brightness > 50 ? 1 : 0})
+        invert(1)
         sepia(1)
-        saturate(${saturation * 10})
-        hue-rotate(${hueRotate}deg)
+        saturate(5)
+        hue-rotate(${getHueRotation(colorValue)}deg)
       `.replace(/\s+/g, ' ').trim();
     }
 
     if (colorLabelInput){
       colorLabelInput.value = color.dataset.label || colorValue;
     }
+  }
+
+  function getHueRotation(hex) {
+    // Convert hex to RGB
+    const r = parseInt(hex.slice(1,3), 16);
+    const g = parseInt(hex.slice(3,5), 16);
+    const b = parseInt(hex.slice(5,7), 16);
+
+    // Convert RGB to HSL to get hue
+    const rNorm = r / 255;
+    const gNorm = g / 255;
+    const bNorm = b / 255;
+
+    const max = Math.max(rNorm, gNorm, bNorm);
+    const min = Math.min(rNorm, gNorm, bNorm);
+    const delta = max - min;
+
+    let hue = 0;
+    if (delta !== 0) {
+      if (max === rNorm) {
+        hue = ((gNorm - bNorm) / delta) % 6;
+      } else if (max === gNorm) {
+        hue = (bNorm - rNorm) / delta + 2;
+      } else {
+        hue = (rNorm - gNorm) / delta + 4;
+      }
+      hue *= 60;
+      if (hue < 0) hue += 360;
+    }
+
+    // Adjust for sepia base color (around 38 degrees)
+    return hue - 38;
   }
 
   function updateMailboxColor(){
