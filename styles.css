@@ -157,18 +157,15 @@ p{margin:.25rem 0 .75rem}
   aspect-ratio:16/10;
   background:#f6f7fb;
   transition:transform .22s ease;
+  display:block;
 }
 .mailbox-base{
   width:100%;
   height:100%;
   object-fit:contain;
   display:block;
-  position:absolute;
-  top:0;
-  left:0;
+  position:relative;
   z-index:1;
-  filter:brightness(1) saturate(1);
-  transition:filter 0.3s ease;
 }
 .decal-design{
   width:100%;
@@ -181,6 +178,7 @@ p{margin:.25rem 0 .75rem}
   z-index:2;
   filter:brightness(1);
   transition:filter 0.3s ease;
+  pointer-events:none;
 }
 .text-overlay{
   position:absolute;
@@ -192,9 +190,10 @@ p{margin:.25rem 0 .75rem}
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:20% 10%;
+  padding:0;
   pointer-events:none;
   z-index:3;
+  gap:1rem;
 }
 .preview-guides{
   position:absolute;
