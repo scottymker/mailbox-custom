@@ -229,6 +229,7 @@ p{margin:.25rem 0 .75rem}
   pointer-events:none;
   user-select:none;
   font-size:18px;
+  max-width:55%;
   z-index:10;
 }
 .decal-text.top{
